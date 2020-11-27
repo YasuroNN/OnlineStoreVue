@@ -4,7 +4,7 @@
       <v-list dense>
         <v-subheader>REPORTS</v-subheader>
         <v-list-item-group v-model="selectedItem" color="primary">
-          <v-list-item v-for="(item, i) in items" :key="i">
+          <v-list-item v-for="(item, i) in items" :key="i" :to="item.url">
             <v-list-item-icon>
               <v-icon v-text="item.icon"></v-icon>
             </v-list-item-icon>
@@ -20,7 +20,7 @@
       <v-spacer></v-spacer>
 
       <v-toolbar-items class="hidden-sm-and-down">
-        <v-btn v-for="(item, name,i) in items" :key="i">
+        <v-btn v-for="(item, name,i) in items" :key="i" :to="item.url">
         <v-icon left>{{ item.icon }}</v-icon>
         {{ item.text }}
         </v-btn>
@@ -36,9 +36,9 @@ export default {
       sideNav: false,
       selectedItem: 1,
       items: [
-        { text: 'linkOne', icon: 'mdi-clock' },
-        { text: 'linkTwo', icon: 'mdi-account' },
-        { text: 'linkThree', icon: 'mdi-flag' },
+        { text: "login", icon: "mdi-clock", url: '/login' },
+        { text: "Register", icon: "mdi-account", url: '/register' },
+        { text: "MyProducts", icon: "mdi-flag", url: '/list'}
       ]
     };
   }
