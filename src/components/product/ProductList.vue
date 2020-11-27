@@ -4,7 +4,7 @@
       <v-layout row>
         <v-flex xs12 sm6 offset-sm3>
           <h1 class="text--secondary mb3">ProductList</h1>
-          <v-card class="elevation-10 mb-2" v-for="(product, i) in products" :key="i">
+          <v-card class="elevation-10 mb-2" v-for="(product, i) in myProducts" :key="i">
             <v-layout>
               <v-flex xs4>
                 <v-img :src="product.imageSrc"></v-img>
@@ -28,33 +28,10 @@
 
 <script>
 export default {
-  data() {
-    return {
-       products: [
-        {
-          id: "1",
-          title: "Lenovo Legion",
-          venodr: "Lenovo",
-          price: 100,
-          imageSrc: "https://cdn1.ozone.ru/s3/multimedia-m/6007603366.jpg"
-        },
-        {
-          id: "2",
-          title: "MacBook",
-          venodr: "apple",
-          price: 200,
-          imageSrc: "https://items.s1.citilink.ru/1376001_v01_b.jpg"
-        },
-        {
-          id: "3",
-          title: "Toshiba ls200",
-          venodr: "Toshiba",
-          price: 400,
-          imageSrc:
-            "https://www.notebookcheck-ru.com/uploads/tx_nbc2/ToshibaSatelliteProR40-C__1_.JPG"
-        }
-      ]
-    };
+  computed: {
+    myProducts(){
+      return this.$store.getters.products
+    }
   }
 };
 </script>

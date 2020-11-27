@@ -4,16 +4,18 @@
     <section class="product mt3 elevation-10">
       <v-layout row wrap>
         <v-flex xs12 lg6>
-          <img src="https://items.s1.citilink.ru/1376001_v01_b.jpg" class="product_img" />
+          <img :src="product.imageSrc" class="product_img" />
         </v-flex>
         <v-flex xs12 lg6>
           <div class="product_info">
-            <h5 class="product_title display-1 mb-3 mt-3">lorem lorem</h5>
+            <h5 class="product_title display-1 mb-3 mt-3">{{product.title}}</h5>
             <p class="product_category_titile">
-              <span class="product_titile">Venodor: </span>Lorem
+              <span class="product_titile">Venodor:</span>
+              {{product.venodr}}
             </p>
             <p class="product_price title">
-              <span class="product_title">Price: </span>$1000
+              <span class="product_title">Price:</span>
+              {{product.price}}
             </p>
           </div>
         </v-flex>
@@ -24,8 +26,12 @@
 
 <script>
 export default {
-  data() {
-    return {};
+  props: ["id"],
+  computed: {
+    product() {
+      const id = this.id;
+      return this.$store.getters.productById(id);
+    }
   }
 };
 </script>

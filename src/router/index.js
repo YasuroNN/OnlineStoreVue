@@ -18,6 +18,7 @@ export default new VueRouter({
     },
     {
       path: '/product/:id',
+      props: true,
       name: 'product',
       component: Product
     },
