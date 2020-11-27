@@ -9,7 +9,7 @@
 -->
 <template>
   <v-app>
-    <v-app-bar app></v-app-bar>
+    <vor-navbar></vor-navbar>
     <v-main>
       <v-container>Hello World</v-container>
     </v-main>
@@ -17,5 +17,11 @@
 </template>
 
 <script>
-export default {};
+import Navbar from './components/Navbar.vue';
+
+export default {
+  components: {
+    vorNavbar: Navbar
+  }
+};
 </script>
