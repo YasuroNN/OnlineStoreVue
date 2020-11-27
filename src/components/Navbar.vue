@@ -36,6 +36,7 @@ export default {
       sideNav: false,
       selectedItem: 1,
       items: [
+        { text: "Home", icon: "mdi-flag", url: '/'},
         { text: "login", icon: "mdi-clock", url: '/login' },
         { text: "Register", icon: "mdi-account", url: '/register' },
         { text: "MyProducts", icon: "mdi-flag", url: '/list'}

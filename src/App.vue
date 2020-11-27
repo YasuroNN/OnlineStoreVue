@@ -11,7 +11,9 @@
   <v-app>
     <vor-navbar></vor-navbar>
     <v-main>
-      <v-container>Hello World</v-container>
+      <v-container>
+        <router-view></router-view>
+      </v-container>
     </v-main>
   </v-app>
 </template>
