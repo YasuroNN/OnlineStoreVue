@@ -12,6 +12,12 @@
               <v-list-item-title v-text="item.text"></v-list-item-title>
             </v-list-item-content>
           </v-list-item>
+
+          <v-list-item>
+            <v-list-item-content>
+              <v-list-item-title @click="onLogout" v-if="isUserLoggedIn">LogOut</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
@@ -24,9 +30,10 @@
 
       <v-toolbar-items class="hidden-sm-and-down">
         <v-btn v-for="(item, name,i) in items" :key="i" :to="item.url">
-        <v-icon left>{{ item.icon }}</v-icon>
-        {{ item.text }}
+          <v-icon left>{{ item.icon }}</v-icon>
+          {{ item.text }}
         </v-btn>
+        <v-btn @click="onLogout" v-if="isUserLoggedIn">LogOut</v-btn>
       </v-toolbar-items>
     </v-app-bar>
   </div>
@@ -37,14 +44,32 @@ export default {
   data() {
     return {
       sideNav: false,
-      selectedItem: 1,
-      items: [
-        { text: "Home", icon: "mdi-flag", url: '/'},
-        { text: "login", icon: "mdi-clock", url: '/login' },
-        { text: "Register", icon: "mdi-account", url: '/register' },
-        { text: "MyProducts", icon: "mdi-flag", url: '/list'}
-      ]
+      selectedItem: 1
     };
+  },
+  methods: {
+    onLogout() {
+      this.$store.dispatch("logoutUser");
+      this.$router.push("/");
+    }
+  },
+  computed: {
+    isUserLoggedIn() {
+      return this.$store.getters.isUserLoggedIn;
+    },
+    items() {
+      if (this.isUserLoggedIn) {
+        return [
+          { text: "Home", icon: "mdi-flag", url: "/" },
+          { text: "MyProducts", icon: "mdi-flag", url: "/list" }
+        ];
+      }
+      return [
+        { text: "Home", icon: "mdi-flag", url: "/" },
+        { text: "login", icon: "mdi-clock", url: "/login" },
+        { text: "Register", icon: "mdi-account", url: "/register" }
+      ];
+    }
   }
 };
 </script>

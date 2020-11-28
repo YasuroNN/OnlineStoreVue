@@ -15,7 +15,7 @@
           </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" @click="onSubmit">Login</v-btn>
+            <v-btn color="primary" @click="onSubmit" :loading="loading">Login</v-btn>
           </v-card-actions>
         </v-card>
       </v-flex>
@@ -31,6 +31,11 @@ export default {
       password: ""
     };
   },
+  computed: {
+    loading (){
+      return this.$store.getters.loading
+    }
+  },
   methods: {
     onSubmit() {
         if (this.$refs.form.validate()){
@@ -38,9 +43,17 @@ export default {
             email: this.email,
             password: this.password
           }
-          console.log(user)
+          this.$store.dispatch('loginUser',user).then(()=>{
+            this.$router.push('/')
+          })
+          .catch(error => console.log(error))
         }
         
+    }
+  },
+  created () {
+    if (this.$route.query['loginError']){
+      this.$store.dispatch('setError', 'Авторризуйся брат')
     }
   }
 };

@@ -10,6 +10,12 @@
 <template>
   <v-app>
     <vor-navbar></vor-navbar>
+    <template v-if="error">
+      <v-snackbar :multi-line="true" :timeout="5000" color="error" @input="colorError" :value="true">
+        {{ error }}
+        <v-btn dark @click.native="closeError">Close</v-btn>
+      </v-snackbar>
+    </template>
     <v-main>
       <v-container>
         <router-view></router-view>
@@ -24,6 +30,16 @@ import Navbar from './components/Navbar.vue';
 export default {
   components: {
     vorNavbar: Navbar
+  },
+  methods: {
+    closeError() {
+      this.$store.dispatch("clearError");
+    }
+  },
+  computed: {
+    error() {
+      return this.$store.getters.error;
+    }
   }
 };
 </script>
