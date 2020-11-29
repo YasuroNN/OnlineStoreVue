@@ -13,34 +13,14 @@ class Product {
 
 export default {
   state: {
-    products: [
-      {
-        id: "1",
-        title: "Lenovo Legion kek",
-        vendor: "Lenovo",
-        price: 100,
-        imageSrc: "https://cdn1.ozone.ru/s3/multimedia-m/6007603366.jpg",
-      },
-      {
-        id: "2",
-        title: "MacBook",
-        vendor: "apple",
-        price: 200,
-        imageSrc: "https://items.s1.citilink.ru/1376001_v01_b.jpg",
-      },
-      {
-        id: "3",
-        title: "Toshiba ls200",
-        vendor: "Toshiba",
-        price: 400,
-        imageSrc:
-          "https://www.notebookcheck-ru.com/uploads/tx_nbc2/ToshibaSatelliteProR40-C__1_.JPG",
-      },
-    ],
+    products: [],
   },
   mutations: {
     createProduct(state, payload) {
       state.products.push(payload)
+    },
+    loadProducts(state, payload){
+      state.products = payload
     }
   },
   actions: {
@@ -69,6 +49,37 @@ export default {
         throw error
       }
       // commit('createProduct', payload)
+    },
+    async fetchProducts({commit}){
+        commit('clearError')
+        commit('setLoading', true)
+        try{
+          const productsVal = await fb.database().ref('products').once('value')
+          const products = productsVal.val()
+          const resultProduct = []
+          Object.keys(products).forEach(key => {
+            const product =products[key]
+            resultProduct.push(
+                new Product(
+                  product.title,
+                  product.vendor,
+                  product.price,
+                  product.description,
+                  product.ownerId,
+                  product.imageSrc,
+                  key
+              )
+            )
+          })
+          commit('loadProducts', resultProduct)
+          commit('setLoading', false)
+          console.log(products)
+        }catch(error){
+          commit('setError', error.message)
+          commit('setLoading', error.message)
+          throw error
+        }
+
     }
   },
   getters: {

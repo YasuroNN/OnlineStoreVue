@@ -32,6 +32,7 @@ new Vue({
       this.$store.dispatch('authLoginUser', user)
     }
   })
+  this.$store.dispatch('fetchProducts')
   },
   render: h => h(App)
 }).$mount('#app')
