@@ -6,6 +6,7 @@ import ProductList from '@/components/product/ProductList'
 import Login from '@/components/auth/Login.vue'
 import Register from '@/components/auth/Register'
 import AuthGuard from './auth-guard'
+import NewProduct from '@/components/product/NewProduct'
 
 
 Vue.use(VueRouter)
@@ -38,6 +39,11 @@ export default new VueRouter({
       path: '/register',
       name: 'register',
       component: Register
+    },
+    {
+      path: '/new',
+      name: 'newProduct',
+      component: NewProduct
     }
   ],
   mode: 'history'

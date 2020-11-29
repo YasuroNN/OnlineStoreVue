@@ -61,7 +61,8 @@ export default {
       if (this.isUserLoggedIn) {
         return [
           { text: "Home", icon: "mdi-flag", url: "/" },
-          { text: "MyProducts", icon: "mdi-flag", url: "/list" }
+          { text: "MyProducts", icon: "mdi-flag", url: "/list" },
+          { text: "New Product", icon: "mdi-flag", url: "/new" },
         ];
       }
       return [

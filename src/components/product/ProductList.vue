@@ -12,7 +12,7 @@
               <v-flex xs8>
                 <v-card-text>
                   <h2 class="text--primary"> {{product.title }}</h2>
-                  <p>{{product.venodr }}</p>
+                  <p>{{product.vendor }}</p>
                 </v-card-text>
                 <v-card-actions>
                   <v-spacer />
