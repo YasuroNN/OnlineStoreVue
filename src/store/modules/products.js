@@ -21,6 +21,14 @@ export default {
     },
     loadProducts(state, payload){
       state.products = payload
+    },
+    updateProduct(state, {title, price, vendor, id}) {
+        const product = state.products.find(a => {
+          return a.id == id
+        })
+        product.title = title
+        product.price=price
+        product.vendor = vendor
     }
   },
   actions: {
@@ -85,6 +93,29 @@ export default {
           throw error
         }
 
+    },
+    async updateProduct({commit}, {title, price, vendor, id}){
+
+      commit('clearError')
+      commit('setLoading', true)
+      try{
+        await fb.database().ref('products').child(id).update({
+          title,
+          price,
+          vendor
+        })
+        commit('updateProduct', {
+          title,
+          price,
+          vendor,
+          id 
+        })
+        commit('setLoading', false)
+      }catch(error){
+        commit('setError', error.message)
+        commit('setLoading', false)
+        throw error
+      }
     }
   },
   getters: {
