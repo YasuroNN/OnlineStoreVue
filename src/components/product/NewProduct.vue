@@ -12,17 +12,18 @@
         </form>
         <v-layout class="mb-3">
           <v-flex xs12>
-              <v-btn class=warning>Upload</v-btn>
+              <v-btn class=warning @click="upload">Upload</v-btn>
+              <input ref="fileInput" type="file" style="display: none;" accept="image/*" @change="onFileChange">
           </v-flex>
         </v-layout>
         <v-layout>
           <v-flex xs12>
-              <img src="" height="200">
+              <img :src="imageSrc" height="200px" v-if="imageSrc">
           </v-flex>
         </v-layout>
         <v-layout>
           <v-flex xs12>
-            <v-btn class="success" @click="create" :loading="loading" :disabled="loading">Create</v-btn>
+            <v-btn class="success" @click="create"  :disabled="!image">Create</v-btn>
             <v-btn @click="clear">clear</v-btn>
           </v-flex>
         </v-layout> 
@@ -37,7 +38,9 @@ export default {
       title:'',
       description: '',
       vendor: '',
-      price: 0
+      price: 0,
+      image: null,
+      imageSrc: ''
     }
   },
   methods:{
@@ -50,11 +53,24 @@ export default {
             description: this.description,
             vendor: this.vendor,
             price: this.price,
-            imageSrc: 'https://items.s1.citilink.ru/1376001_v01_b.jpg'
+            image: this.image
         }
         this.$store.dispatch('createProduct', product).then(()=>{
           this.$router.push('/list')
         }).catch(()=>{})
+    },
+    upload(){
+      this.$refs.fileInput.click()
+    },
+    onFileChange(event){
+      const file = event.target.files[0]
+      const reader = new FileReader()
+      reader.onload = e =>{
+          console.log(e)
+          this.imageSrc = reader.result
+      }
+      reader.readAsDataURL(file)
+      this.image=file
     }
   },
   computed: {

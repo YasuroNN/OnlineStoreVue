@@ -7,7 +7,7 @@ import store from './store'
 import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
-// import 'firebase/storage'
+import 'firebase/storage'
 // import 'firebase/messaging'
 
 Vue.config.productionTip = false
